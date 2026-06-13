@@ -1,0 +1,36 @@
+{% extends "library/base.html" %}
+{% block title %}Return Book{% endblock %}
+{% block content %}
+<h3 class="mb-3">Return Book</h3>
+<div class="card p-3">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr><th>Book</th><th>Student</th><th>Issued</th><th>Due</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        {% for i in active_issues %}
+        <tr>
+          <td>{{ i.book.title }}</td>
+          <td>{{ i.student.name }} ({{ i.student.phone }})</td>
+          <td>{{ i.issue_date|date:"Y-m-d H:i" }}</td>
+          <td class="{% if i.is_overdue %}text-danger{% endif %}">{{ i.due_date|date:"Y-m-d H:i" }}</td>
+          <td>
+            <form method="post" class="d-inline">
+              {% csrf_token %}
+              <input type="hidden" name="issue_id" value="{{ i.id }}">
+              <button class="btn btn-sm btn-accent">Return</button>
+            </form>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-muted">No books currently issued.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="mt-2 text-muted">
+    Fine policy: If kept more than 7 days, ₹50 per extra day.
+  </div>
+</div>
+{% endblock %}

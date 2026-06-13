@@ -1,0 +1,31 @@
+{% extends "library/base.html" %}
+{% block title %}Issued Books{% endblock %}
+{% block content %}
+<h3 class="mb-3">All Issued Records</h3>
+<div class="card p-3">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr><th>Book</th><th>Student</th><th>Status</th><th>Issued</th><th>Due</th><th>Returned</th><th>Fine</th></tr>
+      </thead>
+      <tbody>
+        {% for i in issues %}
+        <tr>
+          <td>{{ i.book.title }}</td>
+          <td>{{ i.student.name }} ({{ i.student.phone }})</td>
+          <td>{{ i.status }}</td>
+          <td>{{ i.issue_date|date:"Y-m-d H:i" }}</td>
+          <td class="{% if i.is_overdue and i.status == 'ISSUED' %}text-danger{% endif %}">
+            {{ i.due_date|date:"Y-m-d H:i" }}
+          </td>
+          <td>{% if i.return_date %}{{ i.return_date|date:"Y-m-d H:i" }}{% else %}—{% endif %}</td>
+          <td>₹{{ i.fine }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="text-center text-muted">No issue records.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

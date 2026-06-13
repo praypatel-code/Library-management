@@ -1,0 +1,47 @@
+{% extends "library/base.html" %}
+{% block title %}Authors List{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>👨‍🏫 Author List</h2>
+  <a href="{% url 'library:add_author' %}" class="btn btn-outline-light btn-accent">➕ Add Author</a>
+</div>
+
+<div class="card shadow-lg p-3">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Bio</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for author in authors %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td class="avatar">
+          {% if author.photo %}
+            <img src="{{ author.photo.url }}" width="50" class="rounded me-2">
+          {% else %}
+          {{ author.name }}
+          {% endif %}
+        </td>
+        <td>{{ author.name }}</td>
+        <td>{{ author.bio|truncatewords:20 }}</td>
+        <td>
+          <a href="{% url 'library:edit_author' author.id %}" class="btn btn-warning btn-sm">✏ Edit</a>
+          <a href="{% url 'library:delete_author' author.id %}" class="btn btn-danger btn-sm">🗑 Delete</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4" class="text-center text-muted">No authors found 📭</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

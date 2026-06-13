@@ -1,0 +1,52 @@
+{% extends "library/base.html" %}
+{% block title %}Books List{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>📖 Book List</h2>
+  <a href="{% url 'library:add_book' %}" class="btn btn-outline-light btn-accent">➕ Add Book</a>
+</div>
+
+<div class="card shadow-lg p-3">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Cover</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th>Category</th>
+        <th>Total</th>
+        <th>Available</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>
+          {% if book.image %}
+            <img src="{{ book.image.url }}" width="50" class="rounded me-2">
+          {% endif %}
+          {{ book.name }}
+        </td>
+        <td>{{ book.author.name }}</td>
+        <td>{{ book.isbn }}</td>
+        <td>{{ book.category }}</td>
+        <td>{{ book.total_copies }}</td>
+        <td>{{ book.available_copies }}</td>
+        <td>
+          <a href="{% url 'library:edit_book' book.id %}" class="btn btn-warning btn-sm">✏ Edit</a>
+          <a class="btn btn-sm btn-outline-danger" href="{% url 'library:delete_book' book.id %}" onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="8" class="text-center text-muted">No books available 📭</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

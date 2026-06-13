@@ -1,0 +1,53 @@
+{% extends "library/base.html" %}
+{% block title %}Add Book{% endblock %}
+{% block content %}
+<h3 class="mb-3">Add Book</h3>
+<div class="card p-4">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Book Name</label>
+        <input name="title" class="form-control" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Book Image</label>
+        <input type="file" name="image" class="form-control">
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Author</label>
+        <select name="author" class="form-select" required>
+          <option value="" hidden>Select author</option>
+          {% for a in authors %}
+            <option value="{{ a.id }}">{{ a.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">ISBN</label>
+        <input name="isbn" class="form-control" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Category</label>
+        <select name="category" class="form-select">
+          <option>Fiction</option><option>Non-Fiction</option><option>Science</option>
+          <option>Technology</option><option>History</option><option>Biography</option><option>Other</option>
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Publication Date</label>
+        <input type="date" name="publication_date" class="form-control">
+      </div>
+      <div class="col-12 mb-3">
+        <label class="form-label">Book Description</label>
+        <textarea name="description" class="form-control" rows="3"></textarea>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Total Books to Add</label>
+        <input type="number" min="1" name="total_copies" class.0="form-control" value="1" required>
+      </div>
+    </div>
+    <button class="btn btn-accent">Save</button>
+  </form>
+</div>
+{% endblock %}

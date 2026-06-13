@@ -1,0 +1,31 @@
+{% extends "library/base.html" %}
+{% block title %}Issue Book{% endblock %}
+{% block content %}
+<h3 class="mb-3">Issue Book</h3>
+<div class="card p-4">
+  <form method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Student</label>
+        <select name="student" class="form-select" required>
+          <option value="" hidden>Select student</option>
+          {% for s in students %}
+            <option value="{{ s.id }}">{{ s.name }} — {{ s.phone }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Book (available shown)</label>
+        <select name="book" class="form-select" required>
+          <option value="" hidden>Select book</option>
+          {% for b in books %}
+            <option value="{{ b.id }}">{{ b.title }} — Available: {{ b.available_copies }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-accent">Issue</button>
+  </form>
+</div>
+{% endblock %}

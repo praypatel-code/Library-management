@@ -1,0 +1,40 @@
+{% extends "library/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2 class="mb-4">Dashboard</h2>
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card p-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div class="text">Total Authors</div>
+          <div class="fs-2 fw-bold">{{ author_count }}</div>
+        </div>
+        <div class="fs-1">✍️</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div class="text">Total Books</div>
+          <div class="fs-2 fw-bold">{{ book_count }}</div>
+        </div>
+        <div class="fs-1">📚</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div class="text">Total Students</div>
+          <div class="fs-2 fw-bold">{{ student_count }}</div>
+        </div>
+        <div class="fs-1">🧑‍🎓</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

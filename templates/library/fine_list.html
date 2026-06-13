@@ -1,0 +1,25 @@
+{% extends "library/base.html" %}
+{% block title %}Fines{% endblock %}
+{% block content %}
+<h3 class="mb-3">Fine List</h3>
+<div class="card p-3">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead><tr><th>Book</th><th>Student</th><th>Issued</th><th>Returned</th><th>Fine</th></tr></thead>
+      <tbody>
+        {% for i in fines %}
+        <tr>
+          <td>{{ i.book.title }}</td>
+          <td>{{ i.student.name }} ({{ i.student.phone }})</td>
+          <td>{{ i.issue_date|date:"Y-m-d H:i" }}</td>
+          <td>{{ i.return_date|date:"Y-m-d H:i" }}</td>
+          <td class="fw-bold">₹{{ i.fine }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-muted">No fines recorded.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
